@@ -1,0 +1,15 @@
+version: "2"
+
+services:
+
+  solidity-playground:
+    image: solidity-playground
+    container_name: solidity-playground
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    volumes:
+      - ./project:/usr/repo
+    ports:
+      - "9545:9545"
+
