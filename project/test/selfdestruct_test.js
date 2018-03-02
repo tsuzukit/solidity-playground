@@ -4,7 +4,7 @@
 const Destructable = artifacts.require("Destructable");
 const Vulnerable = artifacts.require("Vulnerable");
 
-contract('selfdestruct can forcibly send ether to a contract', async (accounts) => {
+contract('selfdestruct によって強制的にイーサを送る事が出来る問題の再現', async (accounts) => {
 
   it("should have contracts deployed", async () => {
     let destructable = await Destructable.deployed();

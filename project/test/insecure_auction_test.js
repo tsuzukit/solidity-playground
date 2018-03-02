@@ -4,7 +4,7 @@
 const InsecureAuction = artifacts.require("InsecureAuction");
 const MaliciousBidder = artifacts.require("MaliciousBidder");
 
-contract('MaliciousBidder will be leader forever', async (accounts) => {
+contract('Fallback 関数は意図的に失敗させる事が出来るので send の結果などで状態を変えている場合は状態変更ができなくなる問題の再現', async (accounts) => {
 
   it("should have InsecureAuction and MaliciousBidder deployed", async () => {
     let insecureAuction = await InsecureAuction.deployed();
