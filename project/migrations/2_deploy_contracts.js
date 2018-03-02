@@ -9,6 +9,9 @@ let Destructable = artifacts.require("Destructable");
 let Reentrancy = artifacts.require("Reentrancy");
 let MaliciousWithdrawer = artifacts.require("MaliciousWithdrawer");
 
+let InsecureWallet = artifacts.require("InsecureWallet");
+let TxAttackWallet = artifacts.require("TxAttackWallet");
+
 module.exports = function(deployer) {
   deployer.deploy(SimpleStorage);
 
@@ -20,5 +23,8 @@ module.exports = function(deployer) {
 
   deployer.deploy(Reentrancy);
   deployer.deploy(MaliciousWithdrawer);
+
+  deployer.deploy(InsecureWallet);
+  deployer.deploy(TxAttackWallet);
 };
 

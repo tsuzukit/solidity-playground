@@ -80,3 +80,16 @@ $ sh script/test/start.sh
 1 と一緒で、送金処理で呼び出される関数の中で再帰的にもとの関数を呼べてしまう。状態変更を行うタイミングによっては意図しない出金などをされてしまう。
 
 `call.value()()` の代わりに `send()` を使えば gas が足りなくて再帰呼び出しは失敗するはず。ただし、`send()` であっても何が実行されるかはわからないので注意が必要。
+
+4: [Tx.origin attack](http://solidity.readthedocs.io/en/develop/security-considerations.html#tx-origin) /
+[テストコード](https://github.com/tsuzukit/solidity-playground/blob/master/project/test/txorigin_test.js) /
+[テストコントラクト](https://github.com/tsuzukit/solidity-playground/blob/master/project/contracts/InsecureWallet.sol)
+
+`tx.origin` で本人確認をしているため、悪意のあるコントラクトはなりすましが可能
+
+具体的には以下のような流れになる
+
+- 攻撃者はユーザーに自分の財布経由で攻撃用コントラクトに送金などをしてもらう (1 wei とか少額)
+- 攻撃用コントラクトは、送金してくれた財布の method を呼んで自分に財布の中身を送金させる指示を出す
+- 財布では、`tx.origin` を使って本人確認しているので、攻撃用コントラクトからの指示を自分からの指示と勘違いして処理を進めてしまう
+- 財布の中身は全て攻撃者に transfer される
